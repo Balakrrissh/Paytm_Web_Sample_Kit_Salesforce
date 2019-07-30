@@ -44,6 +44,39 @@ public with sharing class CheckSumServiceHelper {
         }
         return checkSumValue;
     }
+	
+    /**
+    * @description
+    * @author @BK | 15/6/2019
+    * @param String Key
+    * @param String paramap
+    * @return String
+    */
+    public String genrateCheckSum(String Key, String paramap) {
+        String response = paramap;
+        response = response + '|';
+        String checkSumValue = null;
+        try {
+            Encryption encryption = new AesEncryption();
+            String randomNo = CryptoUtils.generateRandomString(4);
+            response = response + randomNo;
+            String checkSumHash = CryptoUtils.getSHA256(response);
+            checkSumHash = checkSumHash + randomNo;
+            checkSumValue = encryption.encrypt(checkSumHash, Key);
+
+            if (String.isNotBlank(checkSumValue)) {
+                checkSumValue = checkSumValue.replaceAll('\r\n', '');
+                checkSumValue = checkSumValue.replaceAll('\r', '');
+                checkSumValue = checkSumValue.replaceAll('\n', '');
+            }
+
+            System.debug('checkSumValue after ==>'+checkSumValue);
+        }
+        catch (Exception e) {
+            System.debug('Error in genrateCheckSum -->'+e);
+        }
+        return checkSumValue;
+    }
 
     /**
     * @description
