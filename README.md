@@ -1,5 +1,5 @@
 # Paytm_Web_Sample_Kit_Salesforce
-Paytm Integration Development Kit using Salesforce
+Paytm Integration Development Kit using Salesforce (APEX)
 
 Use below method of Class Files to generate checksum and verify checksum.
 
